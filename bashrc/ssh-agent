@@ -1,0 +1,13 @@
+# Will break sftp if you don't check the terminal type
+if [ -t 0 ]; then
+  echo "Looking for old ssh agent"
+  source ~/.agent
+  ssh-add
+  if [ $? -ne 0 ]; then
+    echo "Ssh agent not running"
+    ssh-agent > ~/.agent
+    source ~/.agent
+    ssh-add
+  fi
+fi
+
